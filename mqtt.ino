@@ -6,6 +6,7 @@ char receivedChars[numChars]; // an array to store the received data
 String received; //The data as a string
 boolean newData = false;
 
+//Setting the pins
 const int LED = 12;
 int buzzer = 5;
 
@@ -18,9 +19,6 @@ int IN2 = 8;
 int ENB = 11;
 int IN3 = 9;
 int IN4 = 10;
-
-byte alarmOn = false;
-byte torchOn = false;
 
 void setup() {
   Serial.begin(9600); // Starts the serial communication
@@ -44,6 +42,7 @@ void loop() {
 
   recvWithEndMarker();
 
+  //read intructions from subscribers to the Arduino 
   if (newData == true)
   {
     String instruction = received.substring(0, 100);
@@ -97,6 +96,18 @@ void loop() {
     else if (instruction == "SOUND2")
     {
       cute.play(S_CUDDLY);
+    }
+    else if (instruction == "SOUND3")
+    {
+      cute.play(S_SUPER_HAPPY);
+    }
+    else if (instruction == "SOUND4")
+    {
+      cute.play(S_SAD);
+    }
+    else if (instruction == "SOUND5")
+    {
+      cute.play(S_SLEEPING);
     }
     newData = false;
   }

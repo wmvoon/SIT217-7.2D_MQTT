@@ -2,6 +2,7 @@ const mqtt = require('mqtt');
 const SerialPort = require('serialport');
 const Readline = require('@serialport/parser-readline');
 
+//setting up the Serial Port and linking it to HiveMQ to activate MQTT
 const port = new SerialPort('COM4', { baudRate: 9600 });
 const parser = port.pipe(new Readline({ delimiter: '\n' }));
 const client = mqtt.connect("mqtt://broker.hivemq.com:1883");
@@ -20,6 +21,7 @@ port.on("open", () => {
   console.log('serial port open');
 });
 
+//Comment out this section if we are using HiveMQ Client to communicate with robot
 // Got a message from the Arduino
 /*parser.on('data', data =>{
   console.log('got word from arduino:', data);
@@ -28,9 +30,11 @@ port.on("open", () => {
   });
 });*/
 
+//receive message and print it out
 client.on('message', (topic, message) => {
   console.log(`Received message on ${topic}: ${message}`);
 });
+
 
 client.on('message', (topic, message) => {
   if (topic == 'CCTV-ROVER') {
