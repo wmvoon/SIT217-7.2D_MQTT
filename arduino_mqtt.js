@@ -23,12 +23,12 @@ port.on("open", () => {
 
 //Comment out this section if we are using HiveMQ Client to communicate with robot
 // Got a message from the Arduino
-/*parser.on('data', data =>{
+parser.on('data', data =>{
   console.log('got word from arduino:', data);
   client.publish(topic, data, () => {
     console.log('published the message to MQTT...');
   });
-});*/
+});
 
 //receive message and print it out
 client.on('message', (topic, message) => {
